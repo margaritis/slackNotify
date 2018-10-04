@@ -8,10 +8,14 @@ def call(String buildStatus = 'STARTED') {
   buildStatus = buildStatus ?: 'SUCCESS'
 
   // Default values
+  def gitCommitMessage=sh(returnStdout: true, script: 'git log -1 --format=%B ${GIT_COMMIT}').trim()
+  def gitCommitShortSHA=sh(returnStdout: true, script: 'git rev-parse --short HEAD')
+  // GIT_COMMIT_MESSAGE=sh(returnStdout: true, script: 'git log -1 --format=%B ${GIT_COMMIT}').trim()
+  // GIT_COMMIT_SHORT=sh(returnStdout: true, script: 'git rev-parse --short HEAD')
   def colorName = 'RED'
   def colorCode = '#FF0000'
-  def subject = "${buildStatus}: build in '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-  def summary = "${subject} \n- Stage: '${env.STAGE_NAME}' (<${env.BUILD_URL}|Open>)"
+  def subject = "${buildStatus}: ${env.GIT_AUTHOR_NAME}'s build in '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  def summary = "${subject} \n-${gitCommitMessage} ( ${gitCommitShortSHA} by ${env.GIT_AUTHOR_NAME}) \n Stage: '${env.STAGE_NAME}' (<${env.BUILD_URL}|Open>)"
   def details = """<p>${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
     <p>STAGE: env.STAGE_NAME</p>
     <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>"""
