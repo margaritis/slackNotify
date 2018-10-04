@@ -10,7 +10,7 @@ def call(String buildStatus = 'STARTED') {
   // Default values
   def colorName = 'RED'
   def colorCode = '#FF0000'
-  def subject = "${buildStatus}: ${env.GIT_NAME}'s build in '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  def subject = "${buildStatus}: ${env.GIT_COMMITTER_NAME}'s build in '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
   def summary = "${subject} \n-${env.GIT_COMMIT_MESSAGE} ( ${env.GIT_COMMIT_SHORT} by ${env.GIT_NAME}) \n Stage: '${env.STAGE_NAME}' (<${env.BUILD_URL}|Open>)"
   def details = """<p>${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
     <p>STAGE: env.STAGE_NAME</p>
