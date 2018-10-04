@@ -10,7 +10,7 @@ def call(String buildStatus = 'STARTED') {
   // Default values
   def colorName = 'RED'
   def colorCode = '#FF0000'
-  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' \\ Stage: '${env.STAGE_NAME}'"
+  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' \n Stage: '${env.STAGE_NAME}'"
   def summary = "${subject} (<${env.BUILD_URL}|Open>)"
   def details = """<p>${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
     <p>STAGE: env.STAGE_NAME</p>
